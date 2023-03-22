@@ -9,6 +9,7 @@ disp = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Checkers')
 
 
+
 def get_row_col_from_mouse(pos):
     x, y = pos
     row = y // square_size
