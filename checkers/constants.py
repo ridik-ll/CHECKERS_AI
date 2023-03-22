@@ -1,18 +1,14 @@
 import pygame
 
-width, height = 800, 800
-rows, cols = 8, 8
-square_size = width//cols
+WIDTH, HEIGHT = 800, 800
+ROWS, COLS = 8, 8
+SQUARE_SIZE = WIDTH//COLS
 
-
-red = (255, 0, 0)
-
+# rgb
+red = (145, 48, 43)
 white = (255, 255, 255)
-
 black = (0, 0, 0)
-
 blue = (0, 0, 255)
+grey = (128,128,128)
 
-grey = (128, 128, 128)
-
-crown = pygame.transform.scale(pygame.image.load('checkers/assets/crown.png'), (44, 25))
+CROWN = pygame.transform.scale(pygame.image.load('assets/crown.png'), (44, 25))
