@@ -76,8 +76,10 @@ class Board:
                         white_has_moves = True
 
         if not red_has_moves:
+            print("Congratulations, white player wins!")
             return white
         elif not white_has_moves:
+            print("Congratulations, red player wins!")
             return red
 
         return None
