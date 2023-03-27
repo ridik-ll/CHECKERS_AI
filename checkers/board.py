@@ -72,7 +72,7 @@ class Board:
                 else:
                     self.white_left -= 1
 
-    def winner(self):
+    def winner(self, win):
         red_has_moves = False
         white_has_moves = False
 
@@ -87,10 +87,18 @@ class Board:
                         white_has_moves = True
 
         if not red_has_moves:
-            print("Congratulations, white player wins!")
+            font = pygame.font.Font(None, 36)
+            text = font.render("Congratulations, white player wins!", True, white)
+            text_rect = text.get_rect(center=(SQUARE_SIZE * 4, SQUARE_SIZE * 4))
+            win.blit(text, text_rect)
+            pygame.display.update()
             return white
         elif not white_has_moves:
-            print("Congratulations, red player wins!")
+            font = pygame.font.Font(None, 36)
+            text = font.render("Congratulations, red player wins!", True, white)
+            text_rect = text.get_rect(center=(SQUARE_SIZE * 4, SQUARE_SIZE * 4))
+            win.blit(text, text_rect)
+            pygame.display.update()
             return red
 
         return None
@@ -190,3 +198,5 @@ class Board:
             right += 1
 
         return moves
+
+    pygame.init()

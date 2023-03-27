@@ -1,7 +1,8 @@
 import pygame
-from .constants import red, white, blue, SQUARE_SIZE
+from .constants import red, white, blue, SQUARE_SIZE, WIDTH, HEIGHT
 from checkers.board import Board
 
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 
 class Game:
     def __init__(self, win):
@@ -52,7 +53,7 @@ class Game:
         self.turn = white if self.turn == red else red
 
     def winner(self):
-        return self.board.winner()
+        return self.board.winner(WIN)
 
     def get_board(self):
         return self.board

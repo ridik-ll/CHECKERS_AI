@@ -30,7 +30,8 @@ def main():
             game.ai_move(new_board)
 
         if game.winner() != None:
-            run = False
+            print("someone just won but i dont why message is not working")
+            return game.winner()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
