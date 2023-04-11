@@ -1,6 +1,7 @@
 import pygame
 from .constants import red, white, blue, SQUARE_SIZE, WIDTH, HEIGHT
 from checkers.board import Board
+import sys
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -8,9 +9,30 @@ class Game:
     def __init__(self, win):
         self.selected = None
         self.board = Board()
-        self.turn = red
+        self.turn = None  # Initialize turn as None
         self.valid_moves = {}
         self.win = win
+
+        # Add code to choose first move
+        font = pygame.font.SysFont(None, 30)
+        text = font.render("Choose first move: 'r' for red, 'w' for white", True, white)
+        text_rect = text.get_rect(center=(WIDTH // 2, 30))
+        self.win.blit(text, text_rect)
+        pygame.display.update()
+
+        while self.turn is None:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_r:
+                        self.turn = white
+                    elif event.key == pygame.K_w:
+                        self.turn = red
+
+        # Set the turn of the game after choosing first move
+        self.change_turn()
 
     def update(self):
         self.board.draw(self.win)
