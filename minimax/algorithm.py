@@ -1,22 +1,24 @@
-from copy import deepcopy
 import pygame
+from copy import deepcopy
 
-red = (145, 48, 43)
-white = (255, 255, 255)
+RED = (145, 48, 43)
+WHITE = (255, 255, 255)
 
-
-def minimax(position, depth, max_player, game):
+def minimax(position, depth, is_maximizing_player, game):
+    """
+    Use minimax algorithm to find the best move for the current player.
+    """
     if depth == 0:
         return position.evaluate(), position
 
-    player = white if max_player else red
+    player = WHITE if is_maximizing_player else RED
     best_move = None
-    best_score = float('-inf') if max_player else float('inf')
+    best_score = float('-inf') if is_maximizing_player else float('inf')
 
     for move in get_all_moves(position, player, game):
-        score, _ = minimax(move, depth - 1, not max_player, game)
+        score, _ = minimax(move, depth - 1, not is_maximizing_player, game)
 
-        if max_player:
+        if is_maximizing_player:
             if score > best_score:
                 best_score = score
                 best_move = move
@@ -29,6 +31,9 @@ def minimax(position, depth, max_player, game):
 
 
 def simulate_move(piece, move, board, game, skip):
+    """
+    Simulate a move by moving a piece on a copy of the board.
+    """
     board.move(piece, move[0], move[1])
     if skip:
         board.remove(skip)
@@ -37,6 +42,9 @@ def simulate_move(piece, move, board, game, skip):
 
 
 def get_all_moves(board, color, game):
+    """
+    Get all valid moves for a color on the board.
+    """
     moves = []
 
     for piece in board.get_all_pieces(color):
