@@ -30,6 +30,13 @@ def main():
     # create a new instance of the Game class
     game = Game(WIN)
 
+    # create a font for the button text
+    button_font = pygame.font.SysFont(None, 30)
+
+    # create a button rect and text
+    button_rect = pygame.Rect(50, HEIGHT - 50, 100, 30)
+    button_text = button_font.render('Restart', True, white)
+
     # start the game loop
     while run:
         # set the frame rate
@@ -46,8 +53,6 @@ def main():
             white: 'White'
         }
 
-        # ...
-
         # check if there is a winner and display a message
         winner = game.winner()
         if winner is not None:
@@ -59,14 +64,35 @@ def main():
             text = font.render(f"{winner_name} wins!", True, red)
             text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
             WIN.blit(text, text_rect)
+
+            # display the restart button
+            pygame.draw.rect(WIN, red, button_rect)
+            WIN.blit(button_text, button_rect.topleft)
+
             pygame.display.update()
 
-            # wait for the user to close the window
+            # wait for the user to close the window or click the restart button
             while True:
+                # fill the game screen with black
+                WIN.fill((0, 0, 0))
+
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         sys.exit()
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        if button_rect.collidepoint(event.pos):
+                            main()
+
+                # redraw the game board
+                game.draw()
+
+                # draw the winner message and restart button on top of the game board
+                WIN.blit(text, text_rect)
+                pygame.draw.rect(WIN, red, button_rect)
+                WIN.blit(button_text, button_rect.topleft)
+
+                pygame.display.update()
 
         # handle user input events
         for event in pygame.event.get():
@@ -86,6 +112,7 @@ def main():
 
     # quit pygame when the game loop ends
     pygame.quit()
+
 
 
 # run the main function

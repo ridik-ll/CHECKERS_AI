@@ -15,7 +15,7 @@ class Game:
 
         # Add code to choose first move
         font = pygame.font.SysFont(None, 30)
-        text = font.render("Choose first move: 'r' for red, 'w' for white", True, white)
+        text = font.render("Choose first move: 'r' for Player, 'w' for AI", True, white)
         text_rect = text.get_rect(center=(WIDTH // 2, 30))
         self.win.blit(text, text_rect)
         pygame.display.update()
@@ -80,6 +80,9 @@ class Game:
 
     def get_board(self):
         return self.board
+
+    def draw(self):
+        self.update()
 
     def ai_move(self, board):
         self.board = board
